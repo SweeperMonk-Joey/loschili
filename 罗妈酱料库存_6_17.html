@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>库存监控系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 自定义滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">罗妈酱料库存</h1>
+        
+        <!-- Dashboard 仪表盘 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- 总库存 -->
+            <div class="bg-white rounded-lg shadow p-6 flex items-center">
+                <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+                    <i class="fas fa-boxes text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-gray-500 text-sm">总库存</p>
+                    <h3 id="totalStock" class="text-2xl font-bold">0</h3>
+                </div>
+            </div>
+            
+            <!-- 总产品数量 -->
+            <div class="bg-white rounded-lg shadow p-6 flex items-center">
+                <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
+                    <i class="fas fa-list-ol text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-gray-500 text-sm">总产品数量</p>
+                    <h3 id="totalProducts" class="text-2xl font-bold">0</h3>
+                </div>
+            </div>
+            
+            <!-- 低库存数量 -->
+            <div class="bg-white rounded-lg shadow p-6 flex items-center">
+                <div class="p-3 rounded-full bg-yellow-100 text-yellow-600 mr-4">
+                    <i class="fas fa-exclamation-triangle text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-gray-500 text-sm">低库存 (<3)</p>
+                    <h3 id="lowStockCount" class="text-2xl font-bold">0</h3>
+                </div>
+            </div>
+            
+            <!-- 零库存数量 -->
+            <div class="bg-white rounded-lg shadow p-6 flex items-center">
+                <div class="p-3 rounded-full bg-red-100 text-red-600 mr-4">
+                    <i class="fas fa-times-circle text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-gray-500 text-sm">零库存</p>
+                    <h3 id="zeroStockCount" class="text-2xl font-bold">0</h3>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索栏 -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+            <div class="relative flex-grow">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-gray-400"></i>
+                </div>
+                <input type="text" id="searchInput" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="搜索品名或ID...">
+            </div>
+            <button id="searchBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                <i class="fas fa-search mr-2"></i>搜索
+            </button>
+            <button id="resetBtn" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
+                <i class="fas fa-sync-alt mr-2"></i>重置
+            </button>
+        </div>
+        
+        <!-- 库存表格 -->
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">品名</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">规格</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">单位</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">库存数量</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- 数据将通过JavaScript动态填充 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 历史记录模态框 -->
+    <div id="historyModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50 rounded-t-lg">
+                <h3 id="modalTitle" class="text-lg font-medium text-gray-900">历史记录</h3>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-500">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="overflow-y-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">日期</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">数量</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">备注</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- 历史记录将通过JavaScript动态填充 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="px-6 py-3 border-t border-gray-200 bg-gray-50 rounded-b-lg text-right">
+                <button id="closeModalBottom" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 内嵌的库存数据
+        const inventoryData = {
+          
+          
+  "items": [
+    {
+      "id": "B1",
+      "name": "调味粉",
+      "specification": "1kg*12/袋",
+      "unit": "件",
+      "quantity": 2,
+      "history": [
+        {
+          "date": "2025-05-16T15:54",
+          "action": "入库",
+          "quantity": 4,
+          "note": "盘点到货"
+        },
+        {
+          "date": "2025-05-16T15:54",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B2",
+      "name": "毛血旺底料—体料",
+      "specification": "58g*180袋/件",
+      "unit": "件",
+      "quantity": 12,
+      "history": [
+        {
+          "date": "2025-05-16T05:43",
+          "action": "调整",
+          "quantity": 20,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:49",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:49",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:01",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:01",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-24T05:57",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B3",
+      "name": "酸菜片",
+      "specification": "1kg*12/袋",
+      "unit": "件",
+      "quantity": 6,
+      "history": [
+        {
+          "date": "2025-05-16T05:43",
+          "action": "调整",
+          "quantity": 8,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-13",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B4",
+      "name": "麻辣料汁包",
+      "specification": "1kg*12/袋",
+      "unit": "件",
+      "quantity": 0,
+      "history": [
+        {
+          "date": "2025-05-16T05:44",
+          "action": "调整",
+          "quantity": 2,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-05",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B5",
+      "name": "油辣椒料",
+      "specification": "1kg*12/袋",
+      "unit": "件",
+      "quantity": 0,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 2,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-05",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B6",
+      "name": "油泼酱—体料",
+      "specification": "110g*90袋/件",
+      "unit": "件",
+      "quantity": 18,
+      "history": [
+        {
+          "date": "2025-05-16T05:45",
+          "action": "调整",
+          "quantity": 30,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:47",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:00",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:00",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-24T05:57",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 2,
+          "note": "中央厨房"
+        },
+        {
+          "date": "2025-06-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-13",
+          "action": "出库",
+          "quantity": 2,
+          "note": "中央厨房"
+        },
+        {
+          "date": "2025-06-17",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B7",
+      "name": "剁椒酱—体料",
+      "specification": "86g*130袋/件",
+      "unit": "件",
+      "quantity": 0,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 3,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B8",
+      "name": "红烧酱—体料",
+      "specification": "55g*180袋/件",
+      "unit": "件",
+      "quantity": 10,
+      "history": [
+        {
+          "date": "2025-05-16T05:49",
+          "action": "调整",
+          "quantity": 30,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:47",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:48",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:00",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:00",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-23T16:11",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-23T16:11",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-24T05:56",
+          "action": "出库",
+          "quantity": 4,
+          "note": ""
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 2,
+          "note": "中央厨房"
+        },
+        {
+          "date": "2025-06-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-13",
+          "action": "出库",
+          "quantity": 5,
+          "note": "中央厨房"
+        },
+        {
+          "date": "2025-06-17",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B9",
+      "name": "粉丝虾调味汁",
+      "specification": "500g*20/袋",
+      "unit": "件",
+      "quantity": 2,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 5,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-11",
+          "action": "出库",
+          "quantity": 1,
+          "note": "上次应两箱-补"
+        }
+      ]
+    },
+    {
+      "id": "B10",
+      "name": "麻婆豆腐—体料",
+      "specification": "44g*300袋/件",
+      "unit": "件",
+      "quantity": 8,
+      "history": [
+        {
+          "date": "2025-05-16T05:45",
+          "action": "调整",
+          "quantity": 10,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        }
+      ]
+    },
+    {
+      "id": "B11",
+      "name": "黑椒汁—体料",
+      "specification": "40g*250包/件",
+      "unit": "件",
+      "quantity": 3,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 4,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        }
+      ]
+    },
+    {
+      "id": "B12",
+      "name": "高汤",
+      "specification": "1kg10袋/箱",
+      "unit": "件",
+      "quantity": 4,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 8,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:48",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:48",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B13",
+      "name": "喹喹酱—体料",
+      "specification": "30g*300包/件",
+      "unit": "件",
+      "quantity": 1,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 3,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B14",
+      "name": "辣椒节",
+      "specification": "5kg*1袋/件",
+      "unit": "件",
+      "quantity": 3,
+      "history": [
+        {
+          "date": "2025-05-16T05:49",
+          "action": "调整",
+          "quantity": 6,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": "Boss取"
+        },
+        {
+          "date": "2025-06-13",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B15",
+      "name": "干捞粉丝(纯豆切丝)",
+      "specification": "6kg*2袋/件",
+      "unit": "件",
+      "quantity": 6,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 10,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-19T00:14",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-19T00:14",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B16",
+      "name": "火锅川粉",
+      "specification": "1.5kg*10袋",
+      "unit": "件",
+      "quantity": 4,
+      "history": [
+        {
+          "date": "2025-05-16T05:48",
+          "action": "调整",
+          "quantity": 8,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-19T00:14",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-19T00:14",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B17",
+      "name": "番茄味复合调味料",
+      "specification": "500g*28袋/件",
+      "unit": "件",
+      "quantity": 1,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 4,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B18",
+      "name": "金汤调料酱—体料",
+      "specification": "76g*150袋/件",
+      "unit": "件",
+      "quantity": 4,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 6,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B19",
+      "name": "咖喱酱",
+      "specification": "1kg*10袋/件",
+      "unit": "件",
+      "quantity": 2,
+      "history": [
+        {
+          "date": "2025-05-16T05:47",
+          "action": "调整",
+          "quantity": 5,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-05",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B20",
+      "name": "烂肉粉条酱—体料",
+      "specification": "45g*220袋/件",
+      "unit": "件",
+      "quantity": 0,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 4,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-05",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B21",
+      "name": "贵州酸汤底料",
+      "specification": "500g*40袋/桶",
+      "unit": "桶",
+      "quantity": 2,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 3,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        }
+      ]
+    },
+    {
+      "id": "B22",
+      "name": "小炒汁粉料包",
+      "specification": "25g*300袋/件",
+      "unit": "件",
+      "quantity": 0,
+      "history": [
+        {
+          "date": "2025-05-16T05:47",
+          "action": "调整",
+          "quantity": 2,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B23",
+      "name": "招牌鸡香辣味—体料",
+      "specification": "50g*200包/件",
+      "unit": "件",
+      "quantity": 2,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 5,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-13",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B24",
+      "name": "招牌鸡酱香味—体料",
+      "specification": "50g*200包/件",
+      "unit": "件",
+      "quantity": 2,
+      "history": [
+        {
+          "date": "2025-05-16T05:46",
+          "action": "调整",
+          "quantity": 5,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B25",
+      "name": "酱香卤水",
+      "specification": "1kg*10袋/件",
+      "unit": "件",
+      "quantity": 5,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 5,
+          "note": "系统初始化"
+        }
+      ]
+    }
+  ]
+}         
+  
+
+
+        
+          
+
+  
+
+
+        // 获取DOM元素
+        const inventoryTableBody = document.getElementById('inventoryTableBody');
+        const historyModal = document.getElementById('historyModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const historyTableBody = document.getElementById('historyTableBody');
+        const closeModal = document.getElementById('closeModal');
+        const closeModalBottom = document.getElementById('closeModalBottom');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const totalStockElement = document.getElementById('totalStock');
+        const totalProductsElement = document.getElementById('totalProducts');
+        const lowStockCountElement = document.getElementById('lowStockCount');
+        const zeroStockCountElement = document.getElementById('zeroStockCount');
+
+        // 计算仪表盘数据
+        function calculateDashboardStats(items) {
+            let totalStock = 0;
+            let totalProducts = items.length;
+            let lowStockCount = 0;
+            let zeroStockCount = 0;
+            
+            items.forEach(item => {
+                totalStock += item.quantity;
+                if (item.quantity === 0) {
+                    zeroStockCount++;
+                } else if (item.quantity < 3) {
+                    lowStockCount++;
+                }
+            });
+            
+            return {
+                totalStock,
+                totalProducts,
+                lowStockCount,
+                zeroStockCount
+            };
+        }
+
+        // 更新仪表盘
+        function updateDashboard(items) {
+            const stats = calculateDashboardStats(items);
+            totalStockElement.textContent = stats.totalStock;
+            totalProductsElement.textContent = stats.totalProducts;
+            lowStockCountElement.textContent = stats.lowStockCount;
+            zeroStockCountElement.textContent = stats.zeroStockCount;
+        }
+
+        // 渲染库存表格
+        function renderInventoryTable(items = inventoryData.items) {
+            inventoryTableBody.innerHTML = '';
+            
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // 判断库存状态
+                let quantityClass = '';
+                let ItemsNameClass = 'text-blue-600';
+                if (item.quantity === 0) {
+                    quantityClass = 'bg-red-600 opacity-25 text-white font-bold';
+                    ItemsNameClass = 'text-red-600 font-bold';
+                } else if (item.quantity < 3) {
+                    quantityClass = 'text-yellow-600 font-bold';
+                }
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${item.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="${ItemsNameClass} hover:text-blue-800 cursor-pointer font-medium" data-id="${item.id}">${item.name}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">${item.specification}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${item.unit}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="inline-flex items-center justify-center ${quantityClass} rounded-full w-8 h-8 showdow-lg">${item.quantity}</span>
+                    </td>
+                     `;
+                
+                inventoryTableBody.appendChild(row);
+            });
+            
+            // 添加点击事件监听器
+            document.querySelectorAll('[data-id]').forEach(item => {
+                item.addEventListener('click', () => {
+                    showHistoryModal(item.dataset.id);
+                });
+            });
+            
+            // 更新仪表盘
+            updateDashboard(items);
+        }
+
+        // 显示历史记录模态框
+        function showHistoryModal(itemId) {
+            const item = inventoryData.items.find(i => i.id === itemId);
+            if (!item) return;
+            
+            modalTitle.textContent = `${item.name} (${item.id}) - 历史记录`;
+            historyTableBody.innerHTML = '';
+            
+            // 按日期排序历史记录（最新的在前面）
+            const sortedHistory = [...item.history].sort((a, b) => {
+                return new Date(b.date) - new Date(a.date);
+            });
+            
+            sortedHistory.forEach(record => {
+                const row = document.createElement('tr');
+                
+                // 格式化日期
+                const date = new Date(record.date);
+                const formattedDate = date.toLocaleString('zh-CN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                }).replace(/\//g, '-');
+                
+                // 根据操作类型设置样式类
+                let actionClass = '';
+                let actionIcon = '';
+                if (record.action === '入库') {
+                    actionClass = 'text-green-600';
+                    actionIcon = '<i class="fas fa-arrow-down mr-1"></i>';
+                } else if (record.action === '出库') {
+                    actionClass = 'text-red-600';
+                    actionIcon = '<i class="fas fa-arrow-up mr-1"></i>';
+                } else if (record.action === '调整') {
+                    actionClass = 'text-yellow-600';
+                    actionIcon = '<i class="fas fa-adjust mr-1"></i>';
+                } else if (record.action === '初始库存') {
+                    actionClass = 'text-purple-600';
+                    actionIcon = '<i class="fas fa-database mr-1"></i>';
+                }
+                
+                // 数量显示
+                let quantityDisplay = record.quantity;
+                if (record.quantity > 0) quantityDisplay = `+${record.quantity}`;
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${formattedDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap ${actionClass}">${actionIcon}${record.action}</td>
+                    <td class="px-6 py-4 whitespace-nowrap ${actionClass}">${quantityDisplay}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${record.note || '-'}</td>
+                `;
+                
+                historyTableBody.appendChild(row);
+            });
+            
+            historyModal.classList.remove('hidden');
+            historyModal.classList.add('flex');
+        }
+
+        // 搜索功能
+        function searchInventory() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            if (!searchTerm) {
+                renderInventoryTable();
+                return;
+            }
+            
+            const filteredItems = inventoryData.items.filter(item => {
+                return item.name.toLowerCase().includes(searchTerm) || 
+                       item.id.toLowerCase().includes(searchTerm);
+            });
+            
+            renderInventoryTable(filteredItems);
+        }
+
+        // 关闭模态框
+        function closeModalFunc() {
+            historyModal.classList.add('hidden');
+            historyModal.classList.remove('flex');
+        }
+
+        // 事件监听器
+        closeModal.addEventListener('click', closeModalFunc);
+        closeModalBottom.addEventListener('click', closeModalFunc);
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === historyModal) {
+                closeModalFunc();
+            }
+        });
+
+        searchBtn.addEventListener('click', searchInventory);
+        
+        resetBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            renderInventoryTable();
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchInventory();
+            }
+        });
+
+        // 初始化页面
+        renderInventoryTable();
+    </script>
+</body>
+</html>
