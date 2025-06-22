@@ -1,0 +1,265 @@
+{
+    "items": [
+      {
+        "id": "B1",
+        "name": "调味粉",
+        "specification": "1kg*12/袋",
+        "unit": "件",
+        "quantity": 4,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 4, "note": "系统初始化"},
+          {"date": "2023-10-05", "action": "入库", "quantity": 2, "note": "采购入库"},
+          {"date": "2023-10-10", "action": "出库", "quantity": 1, "note": "生产使用"}
+        ]
+      },
+      {
+        "id": "B2",
+        "name": "毛血旺底料—体料",
+        "specification": "58g*180袋/件",
+        "unit": "件",
+        "quantity": 20,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 20, "note": "系统初始化"},
+          {"date": "2023-10-08", "action": "入库", "quantity": 5, "note": "供应商A"}
+        ]
+      },
+      {
+        "id": "B3",
+        "name": "酸菜片",
+        "specification": "1kg*12/袋",
+        "unit": "件",
+        "quantity": 8,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 8, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B4",
+        "name": "麻辣料汁包",
+        "specification": "1kg*12/袋",
+        "unit": "件",
+        "quantity": 2,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 2, "note": "系统初始化"},
+          {"date": "2023-10-12", "action": "出库", "quantity": 1, "note": "餐厅分店领用"}
+        ]
+      },
+      {
+        "id": "B5",
+        "name": "油辣椒料",
+        "specification": "1kg*12/袋",
+        "unit": "件",
+        "quantity": 2,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 2, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B6",
+        "name": "油泼酱—体料",
+        "specification": "110g*90袋/件",
+        "unit": "件",
+        "quantity": 30,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 30, "note": "系统初始化"},
+          {"date": "2023-10-07", "action": "出库", "quantity": 5, "note": "促销活动"}
+        ]
+      },
+      {
+        "id": "B7",
+        "name": "剁椒酱—体料",
+        "specification": "86g*130袋/件",
+        "unit": "件",
+        "quantity": 3,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 3, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B8",
+        "name": "红烧酱—体料",
+        "specification": "55g*180袋/件",
+        "unit": "件",
+        "quantity": 30,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 25, "note": "系统初始化"},
+          {"date": "2023-10-09", "action": "入库", "quantity": 5, "note": "紧急补货"}
+        ]
+      },
+      {
+        "id": "B9",
+        "name": "粉丝虾调味汁",
+        "specification": "500g*20/袋",
+        "unit": "件",
+        "quantity": 5,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 5, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B10",
+        "name": "麻婆豆腐—体料",
+        "specification": "44g*300袋/件",
+        "unit": "件",
+        "quantity": 10,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 10, "note": "系统初始化"},
+          {"date": "2023-10-11", "action": "出库", "quantity": 2, "note": "新店开业配货"}
+        ]
+      },
+      {
+        "id": "B11",
+        "name": "黑椒汁—体料",
+        "specification": "40g*250包/件",
+        "unit": "件",
+        "quantity": 4,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 4, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B12",
+        "name": "高汤",
+        "specification": "1kg10袋/箱",
+        "unit": "件",
+        "quantity": 8,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 8, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B13",
+        "name": "喹喹酱—体料",
+        "specification": "30g*300包/件",
+        "unit": "件",
+        "quantity": 3,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 3, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B14",
+        "name": "辣椒节",
+        "specification": "5kg*1袋/件",
+        "unit": "件",
+        "quantity": 6,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 6, "note": "系统初始化"},
+          {"date": "2023-10-06", "action": "入库", "quantity": 2, "note": "季节性采购"}
+        ]
+      },
+      {
+        "id": "B15",
+        "name": "干捞粉丝(纯豆切丝)",
+        "specification": "6kg*2袋/件",
+        "unit": "件",
+        "quantity": 10,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 10, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B16",
+        "name": "火锅川粉",
+        "specification": "1.5kg*10袋",
+        "unit": "件",
+        "quantity": 8,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 8, "note": "系统初始化"},
+          {"date": "2023-10-15", "action": "出库", "quantity": 3, "note": "火锅季促销"}
+        ]
+      },
+      {
+        "id": "B17",
+        "name": "番茄味复合调味料",
+        "specification": "500g*28袋/件",
+        "unit": "件",
+        "quantity": 4,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 4, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B18",
+        "name": "金汤调料酱—体料",
+        "specification": "76g*150袋/件",
+        "unit": "件",
+        "quantity": 6,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 6, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B19",
+        "name": "咖喱酱",
+        "specification": "1kg*10袋/件",
+        "unit": "件",
+        "quantity": 5,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 5, "note": "系统初始化"},
+          {"date": "2023-10-14", "action": "调整", "quantity": -1, "note": "库存盘点修正"}
+        ]
+      },
+      {
+        "id": "B20",
+        "name": "烂肉粉条酱—体料",
+        "specification": "45g*220袋/件",
+        "unit": "件",
+        "quantity": 4,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 4, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B21",
+        "name": "贵州酸汤底料",
+        "specification": "500g*40袋/桶",
+        "unit": "桶",
+        "quantity": 3,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 3, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B22",
+        "name": "小炒汁粉料包",
+        "specification": "25g*300袋/件",
+        "unit": "件",
+        "quantity": 2,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 2, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B23",
+        "name": "招牌鸡香辣味—体料",
+        "specification": "50g*200包/件",
+        "unit": "件",
+        "quantity": 5,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 5, "note": "系统初始化"}
+        ]
+      },
+      {
+        "id": "B24",
+        "name": "招牌鸡酱香味—体料",
+        "specification": "50g*200包/件",
+        "unit": "件",
+        "quantity": 5,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 5, "note": "系统初始化"},
+          {"date": "2023-10-13", "action": "入库", "quantity": 2, "note": "新品促销备货"}
+        ]
+      },
+      {
+        "id": "B25",
+        "name": "酱香卤水",
+        "specification": "1kg*10袋/件",
+        "unit": "件",
+        "quantity": 5,
+        "history": [
+          {"date": "2023-10-01", "action": "初始库存", "quantity": 5, "note": "系统初始化"}
+        ]
+      }
+    ]
+  }

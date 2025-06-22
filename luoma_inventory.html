@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>库存管理系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            font-size: 14px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .quantity-cell {
+            display: flex;
+            align-items: center;
+        }
+        input, select, button, textarea {
+            font-size: 14px !important;
+            font-family: Arial, sans-serif !important;
+        }
+        .quantity-input {
+            width: 60px;
+            padding: 5px;
+            margin-right: 5px;
+        }
+        .btn {
+            padding: 5px 10px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 2px;
+        }
+        .update-btn {
+            background-color: #4CAF50;
+        }
+        .update-btn:hover {
+            background-color: #45a049;
+        }
+        .delete-btn {
+            background-color: #f44336;
+        }
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+        .search-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-input {
+            padding: 8px;
+            width: 300px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .total-items {
+            font-weight: bold;
+            color: #333;
+        }
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            padding: 8px 16px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .action-btn:hover {
+            background-color: #0b7dda;
+        }
+        .add-form {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .add-form label {
+            margin-right: 10px;
+        }
+        .add-form input {
+            margin-right: 15px;
+            padding: 5px;
+        }
+        .item-name {
+            color: #2196F3;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .item-name:hover {
+            color: #0b7dda;
+        }
+        .zero-stock {
+            font-weight: bold;
+            color: #ff0000;
+        }
+        .negative-input {
+            border: 1px solid #ff0000;
+            background-color: #ffeeee;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        .history-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        .history-table th, .history-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .history-table th {
+            background-color: #f2f2f2;
+        }
+        .history-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .modal-title {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .add-history-form {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .history-action-btn {
+            padding: 3px 6px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        .delete-history-btn {
+            background-color: #f44336;
+        }
+        /* 分页导航样式 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 5px;
+        }
+        .page-btn {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .page-btn:hover {
+            background-color: #f1f1f1;
+        }
+        .page-btn.active {
+            background-color: #2196F3;
+            color: white;
+            border-color: #2196F3;
+        }
+        .page-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>库存管理系统</h1>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="搜索品名或规格..." onkeyup="searchTable()">
+            <div class="total-items">总条目数: <span id="totalItems">0</span></div>
+        </div>
+        
+        <table id="inventoryTable">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>品名</th>
+                    <th>规格</th>
+                    <th>单位</th>
+                    <th>数量</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- 数据将通过JavaScript动态加载 -->
+            </tbody>
+        </table>
+        
+        <!-- 分页导航 -->
+        <div class="pagination" id="pagination">
+            <!-- 页码按钮将通过JavaScript动态生成 -->
+        </div>
+        <div class="page-info" id="pageInfo">
+            显示 0-0 条，共 0 条
+        </div>
+        
+        <div class="action-buttons">
+            <button class="action-btn" onclick="saveData()">保存数据</button>
+            <button class="action-btn" onclick="loadData()">重新加载</button>
+            <button class="action-btn" onclick="exportData()">导出数据</button>
+            <input type="file" id="fileInput" accept=".json" style="display: none;" onchange="importData(this)">
+            <button class="action-btn" onclick="document.getElementById('fileInput').click()">导入数据</button>
+        </div>
+        
+        <div class="add-form">
+            <h3>添加新物品</h3>
+            <form id="addForm">
+                <label>序号: <input type="text" id="newId" required></label>
+                <label>品名: <input type="text" id="newName" required></label>
+                <label>规格: <input type="text" id="newSpec" required></label>
+                <label>单位: <input type="text" id="newUnit" required></label>
+                <label>数量: <input type="number" id="newQuantity" min="0" value="0" required></label>
+                <button type="button" class="action-btn" onclick="addNewItem()">添加</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 历史记录弹窗 -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 class="modal-title" id="modalTitle">历史记录</h2>
+            
+            <table class="history-table" id="historyTable">
+                <thead>
+                    <tr>
+                        <th>日期时间</th>
+                        <th>操作</th>
+                        <th>数量变化</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="historyBody">
+                    <!-- 历史记录将通过JavaScript动态加载 -->
+                </tbody>
+            </table>
+            
+            <div class="add-history-form">
+                <h3>添加历史记录</h3>
+                <form id="addHistoryForm">
+                    <label>日期时间: <input type="datetime-local" id="historyDateTime" required></label>
+                    <label>操作类型: 
+                        <select id="historyAction" required>
+                            <option value="入库">入库</option>
+                            <option value="出库">出库</option>
+                            <option value="调整">调整</option>
+                            <option value="盘点">盘点</option>
+                        </select>
+                    </label>
+                    <label>数量: <input type="number" id="historyQuantity" min="0" value="0" required></label>
+                    <label>备注: <input type="text" id="historyNote"></label>
+                    <button type="button" class="action-btn" onclick="addHistoryRecord()">添加记录</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量存储库存数据
+        let inventoryData = {
+            items: []
+        };
+        
+        // 当前查看历史记录的物品ID
+        let currentHistoryItemId = null;
+        
+        // 分页相关变量
+        let currentPage = 1;
+        const itemsPerPage = 20;
+        let filteredItems = [];
+
+        // 页面加载时初始化数据
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置默认日期时间为当前时间
+            const now = new Date();
+            const formattedNow = now.toISOString().slice(0, 16);
+            document.getElementById('historyDateTime').value = formattedNow;
+            
+            // 尝试从本地存储加载数据
+            const savedData = localStorage.getItem('inventoryData');
+            if (savedData) {
+                inventoryData = JSON.parse(savedData);
+                filteredItems = [...inventoryData.items];
+                renderTable();
+                renderPagination();
+            } else {
+                // 如果没有本地数据，则从JSON文件加载
+                fetch('inventory_data.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        inventoryData = data;
+                        filteredItems = [...inventoryData.items];
+                        renderTable();
+                        renderPagination();
+                    })
+                    .catch(error => {
+                        console.error('加载数据失败:', error);
+                        alert('加载初始数据失败，请确保inventory_data.json文件存在');
+                    });
+            }
+        });
+
+        // 渲染表格（带分页）
+        function renderTable() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+            
+            // 计算当前页的数据范围
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, filteredItems.length);
+            const currentItems = filteredItems.slice(startIndex, endIndex);
+            
+            currentItems.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // 检查库存是否为0，添加相应类名
+                const nameCellClass = item.quantity === 0 ? 'zero-stock' : '';
+                
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td><span class="item-name ${nameCellClass}" onclick="showHistory('${item.id}')">${item.name}</span></td>
+                    <td>${item.specification}</td>
+                    <td>${item.unit}</td>
+                    <td class="quantity-cell">
+                        <input type="number" class="quantity-input" value="${item.quantity}" min="0" 
+                               onchange="updateQuantity('${item.id}', this)" 
+                               oninput="validateQuantityInput(this)">
+                    </td>
+                    <td>
+                        <button class="btn delete-btn" onclick="deleteItem('${item.id}')">删除</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            document.getElementById('totalItems').textContent = filteredItems.length;
+            updatePageInfo();
+        }
+
+        // 渲染分页导航
+        function renderPagination() {
+            const paginationDiv = document.getElementById('pagination');
+            paginationDiv.innerHTML = '';
+            
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+            
+            // 上一页按钮
+            const prevButton = document.createElement('button');
+            prevButton.className = 'page-btn';
+            prevButton.textContent = '上一页';
+            prevButton.disabled = currentPage === 1;
+            prevButton.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                    renderPagination();
+                }
+            };
+            paginationDiv.appendChild(prevButton);
+            
+            // 页码按钮
+            const maxVisiblePages = 5; // 最多显示5个页码按钮
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+            
+            // 调整起始页码，确保显示maxVisiblePages个按钮
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+            
+            // 第一页按钮
+            if (startPage > 1) {
+                const firstButton = document.createElement('button');
+                firstButton.className = 'page-btn';
+                firstButton.textContent = '1';
+                firstButton.onclick = () => {
+                    currentPage = 1;
+                    renderTable();
+                    renderPagination();
+                };
+                paginationDiv.appendChild(firstButton);
+                
+                if (startPage > 2) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.textContent = '...';
+                    paginationDiv.appendChild(ellipsis);
+                }
+            }
+            
+            // 中间页码按钮
+            for (let i = startPage; i <= endPage; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                pageButton.textContent = i;
+                pageButton.onclick = () => {
+                    currentPage = i;
+                    renderTable();
+                    renderPagination();
+                };
+                paginationDiv.appendChild(pageButton);
+            }
+            
+            // 最后一页按钮
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.textContent = '...';
+                    paginationDiv.appendChild(ellipsis);
+                }
+                
+                const lastButton = document.createElement('button');
+                lastButton.className = 'page-btn';
+                lastButton.textContent = totalPages;
+                lastButton.onclick = () => {
+                    currentPage = totalPages;
+                    renderTable();
+                    renderPagination();
+                };
+                paginationDiv.appendChild(lastButton);
+            }
+            
+            // 下一页按钮
+            const nextButton = document.createElement('button');
+            nextButton.className = 'page-btn';
+            nextButton.textContent = '下一页';
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                    renderPagination();
+                }
+            };
+            paginationDiv.appendChild(nextButton);
+        }
+
+        // 更新页面信息
+        function updatePageInfo() {
+            const startIndex = (currentPage - 1) * itemsPerPage + 1;
+            const endIndex = Math.min(currentPage * itemsPerPage, filteredItems.length);
+            document.getElementById('pageInfo').textContent = 
+                `显示 ${startIndex}-${endIndex} 条，共 ${filteredItems.length} 条`;
+        }
+
+        // 验证数量输入
+        function validateQuantityInput(input) {
+            if (parseInt(input.value) < 0) {
+                input.classList.add('negative-input');
+            } else {
+                input.classList.remove('negative-input');
+            }
+        }
+
+        // 更新数量
+        function updateQuantity(id, inputElement) {
+            const newQuantity = parseInt(inputElement.value);
+            
+            if (newQuantity < 0) {
+                alert('库存数量不能为负数！');
+                inputElement.value = 0;
+                return;
+            }
+            
+            const item = inventoryData.items.find(item => item.id === id);
+            if (item) {
+                const oldQuantity = item.quantity;
+                const quantityChange = newQuantity - oldQuantity;
+                
+                // 如果数量没有变化，则不记录
+                if (quantityChange === 0) {
+                    return;
+                }
+                
+                item.quantity = newQuantity;
+                
+                if (!item.history) {
+                    item.history = [];
+                }
+                
+                const now = new Date();
+                const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+                const formattedNow = now.toISOString().slice(0, 16);
+                
+                // 检查1小时内是否有调整记录可以合并
+                let merged = false;
+                for (let i = item.history.length - 1; i >= 0; i--) {
+                    const record = item.history[i];
+                    const recordDate = new Date(record.date);
+                    
+                    if (record.action === '调整' && recordDate >= oneHourAgo && recordDate <= now) {
+                        record.quantity += quantityChange;
+                        record.note = "合并调整记录";
+                        record.date = formattedNow;
+                        merged = true;
+                        break;
+                    }
+                }
+                
+                // 如果没有合并，则添加新记录
+                if (!merged) {
+                    item.history.push({
+                        date: formattedNow,
+                        action: "调整",
+                        quantity: quantityChange,
+                        note: "手动调整库存"
+                    });
+                }
+                
+                saveDataToLocalStorage();
+                renderTable();
+            }
+        }
+
+        // 删除物品
+        function deleteItem(id) {
+            if (confirm('确定要删除此项吗？')) {
+                // 从原始数据中删除
+                inventoryData.items = inventoryData.items.filter(item => item.id !== id);
+                // 从过滤数据中删除
+                filteredItems = filteredItems.filter(item => item.id !== id);
+                
+                // 如果当前页没有数据且不是第一页，则返回上一页
+                if (filteredItems.length <= (currentPage - 1) * itemsPerPage && currentPage > 1) {
+                    currentPage--;
+                }
+                
+                saveDataToLocalStorage();
+                renderTable();
+                renderPagination();
+            }
+        }
+
+        // 添加新物品
+        function addNewItem() {
+            const id = document.getElementById('newId').value.trim();
+            const name = document.getElementById('newName').value.trim();
+            const spec = document.getElementById('newSpec').value.trim();
+            const unit = document.getElementById('newUnit').value.trim();
+            const quantity = parseInt(document.getElementById('newQuantity').value);
+            
+            if (!id || !name || !spec || !unit || isNaN(quantity)) {
+                alert('请填写所有字段且数量必须为数字');
+                return;
+            }
+            
+            // 防止负数库存
+            if (quantity < 0) {
+                alert('库存数量不能为负数！');
+                return;
+            }
+            
+            // 检查ID是否已存在
+            if (inventoryData.items.some(item => item.id === id)) {
+                alert('该序号已存在，请使用不同的序号');
+                return;
+            }
+            
+            const now = new Date();
+            const formattedNow = now.toISOString().slice(0, 16);
+            const newItem = {
+                id,
+                name,
+                specification: spec,
+                unit,
+                quantity,
+                history: [
+                    {
+                        date: formattedNow,
+                        action: "初始库存",
+                        quantity: quantity,
+                        note: "新增物品"
+                    }
+                ]
+            };
+            
+            inventoryData.items.push(newItem);
+            filteredItems = [...inventoryData.items];
+            
+            // 计算新添加的项目应该在的页码
+            const newItemIndex = filteredItems.findIndex(item => item.id === id);
+            currentPage = Math.ceil((newItemIndex + 1) / itemsPerPage);
+            
+            document.getElementById('addForm').reset();
+            document.getElementById('newQuantity').value = 0;
+            saveDataToLocalStorage();
+            renderTable();
+            renderPagination();
+        }
+
+        // 搜索功能
+        function searchTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            
+            if (filter === '') {
+                filteredItems = [...inventoryData.items];
+            } else {
+                filteredItems = inventoryData.items.filter(item => {
+                    const nameMatch = item.name.toUpperCase().includes(filter);
+                    const specMatch = item.specification.toUpperCase().includes(filter);
+                    return nameMatch || specMatch;
+                });
+            }
+            
+            currentPage = 1; // 搜索后回到第一页
+            renderTable();
+            renderPagination();
+        }
+
+        // 渲染历史记录表格
+        function renderHistoryTable(item) {
+            const historyBody = document.getElementById('historyBody');
+            historyBody.innerHTML = '';
+            
+            if (item.history && item.history.length > 0) {
+                // 按日期降序排序
+                const sortedHistory = [...item.history].sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                sortedHistory.forEach((record, index) => {
+                    const row = document.createElement('tr');
+                    const quantityText = record.action === '出库' ? `-${record.quantity}` : `+${record.quantity}`;
+                    const quantityCell = record.action === '出库' ? 
+                        `<td style="color: red;">${quantityText}</td>` : 
+                        `<td style="color: green;">${quantityText}</td>`;
+                    
+                    // 格式化日期显示
+                    const recordDate = new Date(record.date);
+                    const formattedDate = recordDate.toLocaleString('zh-CN', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    row.innerHTML = `
+                        <td>${formattedDate}</td>
+                        <td>${record.action}</td>
+                        ${quantityCell}
+                        <td>${record.note || ''}</td>
+                        <td>
+                            <button class="btn delete-history-btn history-action-btn" 
+                                    onclick="deleteHistoryRecord('${item.id}', ${index})">
+                                删除
+                            </button>
+                        </td>
+                    `;
+                    historyBody.appendChild(row);
+                });
+            } else {
+                historyBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">暂无历史记录</td></tr>';
+            }
+        }
+
+        // 显示历史记录弹窗
+        function showHistory(itemId) {
+            currentHistoryItemId = itemId;
+            const item = inventoryData.items.find(item => item.id === itemId);
+            if (!item) return;
+            
+            document.getElementById('modalTitle').textContent = `${item.name} (${item.specification}) - 历史记录`;
+            
+            // 设置日期时间输入框为当前时间
+            const now = new Date();
+            const formattedNow = now.toISOString().slice(0, 16);
+            document.getElementById('historyDateTime').value = formattedNow;
+            
+            renderHistoryTable(item);
+            document.getElementById('historyModal').style.display = 'block';
+        }
+
+        // 关闭弹窗
+        function closeModal() {
+            document.getElementById('historyModal').style.display = 'none';
+            currentHistoryItemId = null;
+        }
+
+        // 删除单条历史记录
+        function deleteHistoryRecord(itemId, historyIndex) {
+            if (confirm('确定要删除这条历史记录吗？')) {
+                const item = inventoryData.items.find(item => item.id === itemId);
+                if (item && item.history) {
+                    item.history.splice(historyIndex, 1);
+                    saveDataToLocalStorage();
+                    
+                    // 重新计算当前库存
+                    recalculateCurrentQuantity(item);
+                    
+                    // 重新渲染表格和历史记录
+                    filteredItems = [...inventoryData.items];
+                    renderTable();
+                    renderPagination();
+                    renderHistoryTable(item);
+                }
+            }
+        }
+
+        // 重新计算当前库存
+        function recalculateCurrentQuantity(item) {
+            if (!item.history || item.history.length === 0) {
+                item.quantity = 0;
+                return;
+            }
+            
+            // 按日期升序排序
+            const sortedHistory = [...item.history].sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            let currentQuantity = 0;
+            sortedHistory.forEach(record => {
+                if (record.action === '入库' || record.action === '初始库存') {
+                    currentQuantity += record.quantity;
+                } else if (record.action === '出库') {
+                    currentQuantity -= record.quantity;
+                } else if (record.action === '调整') {
+                    currentQuantity += record.quantity;
+                }
+            });
+            
+            item.quantity = Math.max(0, currentQuantity);
+        }
+
+        // 添加历史记录
+        function addHistoryRecord() {
+            if (!currentHistoryItemId) return;
+            
+            const item = inventoryData.items.find(item => item.id === currentHistoryItemId);
+            if (!item) return;
+            
+            const dateTime = document.getElementById('historyDateTime').value;
+            const action = document.getElementById('historyAction').value;
+            const quantity = parseInt(document.getElementById('historyQuantity').value);
+            const note = document.getElementById('historyNote').value.trim();
+            
+            if (!dateTime || isNaN(quantity)) {
+                alert('请填写日期和数量');
+                return;
+            }
+            
+            if (quantity < 0) {
+                alert('数量不能为负数！');
+                return;
+            }
+            
+            if (action === '出库' && quantity > item.quantity) {
+                alert('出库数量不能超过当前库存！');
+                return;
+            }
+            
+            if (!item.history) {
+                item.history = [];
+            }
+            
+            // 检查1小时内是否有相同类型的记录可以合并
+            const now = new Date(dateTime);
+            const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+            
+            let merged = false;
+            if (action === '入库' || action === '出库') {
+                for (let i = item.history.length - 1; i >= 0; i--) {
+                    const record = item.history[i];
+                    const recordDate = new Date(record.date);
+                    
+                    // 如果是1小时内相同类型的记录，则合并
+                    if (record.action === action && recordDate >= oneHourAgo && recordDate <= now) {
+                        record.quantity += quantity;
+                        record.note = note || record.note;
+                        record.date = dateTime;
+                        merged = true;
+                        break;
+                    }
+                }
+            }
+            
+            // 如果没有合并，则添加新记录
+            if (!merged) {
+                item.history.push({
+                    date: dateTime,
+                    action,
+                    quantity,
+                    note
+                });
+            }
+            
+            // 更新库存数量
+            if (action === '入库') {
+                item.quantity += quantity;
+            } else if (action === '出库') {
+                item.quantity -= quantity;
+                if (item.quantity < 0) item.quantity = 0;
+            }
+            
+            // 重置表单
+            document.getElementById('addHistoryForm').reset();
+            const nowFormatted = new Date().toISOString().slice(0, 16);
+            document.getElementById('historyDateTime').value = nowFormatted;
+            document.getElementById('historyQuantity').value = 0;
+            
+            // 重新渲染表格和历史记录
+            filteredItems = [...inventoryData.items];
+            renderTable();
+            renderPagination();
+            renderHistoryTable(item);
+            saveDataToLocalStorage();
+        }
+
+        // 保存数据到本地存储
+        function saveDataToLocalStorage() {
+            localStorage.setItem('inventoryData', JSON.stringify(inventoryData));
+        }
+
+        // 保存数据（显式调用）
+        function saveData() {
+            saveDataToLocalStorage();
+            alert('数据已保存到浏览器本地存储');
+        }
+
+        // 重新加载数据
+        function loadData() {
+            if (confirm('重新加载将丢失未保存的更改，确定继续吗？')) {
+                const savedData = localStorage.getItem('inventoryData');
+                if (savedData) {
+                    inventoryData = JSON.parse(savedData);
+                    filteredItems = [...inventoryData.items];
+                    currentPage = 1;
+                    renderTable();
+                    renderPagination();
+                    alert('数据已从本地存储重新加载');
+                } else {
+                    alert('没有找到本地存储的数据');
+                }
+            }
+        }
+
+        // 导出数据
+        function exportData() {
+            const dataStr = JSON.stringify(inventoryData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'inventory_data_export.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        // 导入数据
+        function importData(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (importedData && Array.isArray(importedData.items)) {
+                        if (confirm('导入将覆盖当前数据，确定继续吗？')) {
+                            inventoryData = importedData;
+                            filteredItems = [...inventoryData.items];
+                            currentPage = 1;
+                            renderTable();
+                            renderPagination();
+                            saveDataToLocalStorage();
+                            alert('数据导入成功');
+                        }
+                    } else {
+                        alert('导入的文件格式不正确');
+                    }
+                } catch (error) {
+                    alert('解析JSON文件失败: ' + error.message);
+                }
+                // 重置文件输入，允许重复导入同一文件
+                input.value = '';
+            };
+            reader.readAsText(file);
+        }
+        
+        // 点击弹窗外部关闭弹窗
+        window.onclick = function(event) {
+            const modal = document.getElementById('historyModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
