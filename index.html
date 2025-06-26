@@ -90,6 +90,15 @@
                     <td style='width:40px;color:red;' class="quantity-cell">${item.quantity}</td>
 
                 `;
+                }else if(item.quantity<3){
+                     row.innerHTML = `
+                    <td style='width:40px'>${item.id}</td>
+                    <td style='width:150px;color:orange;font-weight:bold;'>${item.name}</td>
+                    <td style='width:100px'>${item.specification}</td>
+                    <td style='width:40px'>${item.unit}</td>
+                    <td style='width:40px;color:orange;' class="quantity-cell">${item.quantity}</td>
+
+                `;
                 }else{
                      row.innerHTML = `
                     <td style='width:40px'>${item.id}</td>
