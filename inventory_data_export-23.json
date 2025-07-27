@@ -1,0 +1,1405 @@
+{
+  "items": [
+    {
+      "id": "B1",
+      "name": "调味粉",
+      "specification": "1kg*12/袋",
+      "unit": "件",
+      "quantity": 17,
+      "history": [
+        {
+          "date": "2025-05-16T15:54",
+          "action": "入库",
+          "quantity": 4,
+          "note": "盘点到货"
+        },
+        {
+          "date": "2025-05-16T15:54",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 15,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B2",
+      "name": "毛血旺底料—体料",
+      "specification": "58g*180袋/件",
+      "unit": "件",
+      "quantity": 5,
+      "history": [
+        {
+          "date": "2025-05-16T05:43",
+          "action": "调整",
+          "quantity": 20,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:49",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:49",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:01",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:01",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-24T05:57",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-28",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-01",
+          "action": "出库",
+          "quantity": 2,
+          "note": "中央厨房"
+        },
+        {
+          "date": "2025-07-08",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-16",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-21",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B3",
+      "name": "酸菜片",
+      "specification": "1kg*12/袋",
+      "unit": "件",
+      "quantity": 6,
+      "history": [
+        {
+          "date": "2025-05-16T05:43",
+          "action": "调整",
+          "quantity": 8,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-13",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B4",
+      "name": "麻辣料汁包",
+      "specification": "1kg*12/袋",
+      "unit": "件",
+      "quantity": 1,
+      "history": [
+        {
+          "date": "2025-05-16T05:44",
+          "action": "调整",
+          "quantity": 2,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-05",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-07-18",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B5",
+      "name": "油辣椒料",
+      "specification": "1kg*12/袋",
+      "unit": "件",
+      "quantity": 1,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 2,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-05",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-07-18",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B6",
+      "name": "油泼酱—体料",
+      "specification": "110g*90袋/件",
+      "unit": "件",
+      "quantity": 28,
+      "history": [
+        {
+          "date": "2025-05-16T05:45",
+          "action": "调整",
+          "quantity": 30,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:47",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:00",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:00",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-24T05:57",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 2,
+          "note": "中央厨房"
+        },
+        {
+          "date": "2025-06-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-13",
+          "action": "出库",
+          "quantity": 2,
+          "note": "中央厨房"
+        },
+        {
+          "date": "2025-06-17",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-30",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-08",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-16",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 15,
+          "note": ""
+        },
+        {
+          "date": "2025-07-18",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-23",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B7",
+      "name": "剁椒酱—体料",
+      "specification": "86g*130袋/件",
+      "unit": "件",
+      "quantity": 0,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 3,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-18",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B8",
+      "name": "红烧酱—体料",
+      "specification": "55g*180袋/件",
+      "unit": "件",
+      "quantity": 15,
+      "history": [
+        {
+          "date": "2025-05-16T05:49",
+          "action": "调整",
+          "quantity": 30,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:47",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:48",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:00",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-21T03:00",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-23T16:11",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-23T16:11",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-24T05:56",
+          "action": "出库",
+          "quantity": 4,
+          "note": ""
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 2,
+          "note": "中央厨房"
+        },
+        {
+          "date": "2025-06-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-13",
+          "action": "出库",
+          "quantity": 5,
+          "note": "中央厨房"
+        },
+        {
+          "date": "2025-06-17",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-26",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-06-30",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-01",
+          "action": "出库",
+          "quantity": 2,
+          "note": "中央厨房"
+        },
+        {
+          "date": "2025-07-08",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-16",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 15,
+          "note": ""
+        },
+        {
+          "date": "2025-07-18",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-21",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B9",
+      "name": "粉丝虾调味汁",
+      "specification": "500g*20/袋",
+      "unit": "件",
+      "quantity": 6,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 5,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-11",
+          "action": "出库",
+          "quantity": 1,
+          "note": "上次应两箱-补"
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 5,
+          "note": ""
+        },
+        {
+          "date": "2025-07-21",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B10",
+      "name": "麻婆豆腐—体料",
+      "specification": "44g*300袋/件",
+      "unit": "件",
+      "quantity": 10,
+      "history": [
+        {
+          "date": "2025-05-16T05:45",
+          "action": "调整",
+          "quantity": 10,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-07-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 3,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B11",
+      "name": "黑椒汁—体料",
+      "specification": "40g*250包/件",
+      "unit": "件",
+      "quantity": 3,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 4,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        }
+      ]
+    },
+    {
+      "id": "B12",
+      "name": "高汤",
+      "specification": "1kg10袋/箱",
+      "unit": "件",
+      "quantity": 9,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 8,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:48",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-20T05:48",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-20",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 8,
+          "note": ""
+        },
+        {
+          "date": "2025-07-21",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B13",
+      "name": "喹喹酱—体料",
+      "specification": "30g*300包/件",
+      "unit": "件",
+      "quantity": 0,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 3,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-30",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-21",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B14",
+      "name": "辣椒节",
+      "specification": "5kg*1袋/件",
+      "unit": "件",
+      "quantity": 4,
+      "history": [
+        {
+          "date": "2025-05-16T05:49",
+          "action": "调整",
+          "quantity": 6,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": "Boss取"
+        },
+        {
+          "date": "2025-06-13",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-26",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-02",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 6,
+          "note": ""
+        },
+        {
+          "date": "2025-07-18",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-21",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B15",
+      "name": "干捞粉丝(纯豆切丝)",
+      "specification": "6kg*2袋/件",
+      "unit": "件",
+      "quantity": 11,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 10,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:50",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-19T00:14",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-19T00:14",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-02",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-08",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 10,
+          "note": ""
+        },
+        {
+          "date": "2025-07-21",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-25",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B16",
+      "name": "火锅川粉",
+      "specification": "1.5kg*10袋",
+      "unit": "件",
+      "quantity": 9,
+      "history": [
+        {
+          "date": "2025-05-16T05:48",
+          "action": "调整",
+          "quantity": 8,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-19T00:14",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-19T00:14",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-08",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 8,
+          "note": ""
+        },
+        {
+          "date": "2025-07-23",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B17",
+      "name": "番茄味复合调味料",
+      "specification": "500g*28袋/件",
+      "unit": "件",
+      "quantity": 3,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 4,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-28",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 4,
+          "note": ""
+        },
+        {
+          "date": "2025-07-21",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B18",
+      "name": "金汤调料酱—体料",
+      "specification": "76g*150袋/件",
+      "unit": "件",
+      "quantity": 8,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 6,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-10",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-28",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-11",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 6,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B19",
+      "name": "咖喱酱",
+      "specification": "1kg*10袋/件",
+      "unit": "件",
+      "quantity": 5,
+      "history": [
+        {
+          "date": "2025-05-16T05:47",
+          "action": "调整",
+          "quantity": 5,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-05",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-07-08",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 5,
+          "note": ""
+        },
+        {
+          "date": "2025-07-21",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B20",
+      "name": "烂肉粉条酱—体料",
+      "specification": "45g*220袋/件",
+      "unit": "件",
+      "quantity": 4,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 4,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-05",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 4,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B21",
+      "name": "贵州酸汤底料",
+      "specification": "500g*40袋/桶",
+      "unit": "桶",
+      "quantity": 2,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 3,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        }
+      ]
+    },
+    {
+      "id": "B22",
+      "name": "小炒汁粉料包",
+      "specification": "25g*300袋/件",
+      "unit": "件",
+      "quantity": 1,
+      "history": [
+        {
+          "date": "2025-05-16T05:47",
+          "action": "调整",
+          "quantity": 2,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-07-18",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B23",
+      "name": "招牌鸡香辣味—体料",
+      "specification": "50g*200包/件",
+      "unit": "件",
+      "quantity": 6,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 5,
+          "note": "系统初始化"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-06",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-13",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-06-18",
+          "action": "出库",
+          "quantity": 1,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 6,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "出库",
+          "quantity": 1,
+          "note": "调整库存"
+        }
+      ]
+    },
+    {
+      "id": "B24",
+      "name": "招牌鸡酱香味—体料",
+      "specification": "50g*200包/件",
+      "unit": "件",
+      "quantity": 7,
+      "history": [
+        {
+          "date": "2025-05-16T05:46",
+          "action": "调整",
+          "quantity": 5,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-05-16T05:51",
+          "action": "调整",
+          "quantity": -1,
+          "note": "手动调整库存"
+        },
+        {
+          "date": "2025-06-03",
+          "action": "出库",
+          "quantity": 2,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 5,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B25",
+      "name": "酱香卤水",
+      "specification": "1kg*10袋/件",
+      "unit": "件",
+      "quantity": 5,
+      "history": [
+        {
+          "date": "2023-10-01",
+          "action": "初始库存",
+          "quantity": 5,
+          "note": "系统初始化"
+        }
+      ]
+    },
+    {
+      "id": "B26",
+      "name": "麻婆豆腐酱料(罗妈)",
+      "specification": "1kg*15袋/件",
+      "unit": "件",
+      "quantity": 7,
+      "history": [
+        {
+          "date": "2025-07-22",
+          "action": "初始库存",
+          "quantity": 0,
+          "note": "新增物品"
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 7,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B27",
+      "name": "啧啧酱",
+      "specification": "1kg*10袋/件",
+      "unit": "件",
+      "quantity": 2,
+      "history": [
+        {
+          "date": "2025-07-22",
+          "action": "初始库存",
+          "quantity": 0,
+          "note": "新增物品"
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 2,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B28",
+      "name": "万能汁",
+      "specification": "1kg*10袋/件",
+      "unit": "件",
+      "quantity": 1,
+      "history": [
+        {
+          "date": "2025-07-22",
+          "action": "初始库存",
+          "quantity": 0,
+          "note": "新增物品"
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 1,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B29",
+      "name": "家常酱料",
+      "specification": "1kg*12袋/件",
+      "unit": "件",
+      "quantity": 20,
+      "history": [
+        {
+          "date": "2025-07-22",
+          "action": "初始库存",
+          "quantity": 0,
+          "note": "新增物品"
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 20,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B30",
+      "name": "香辣酱",
+      "specification": "1kg*12袋/件",
+      "unit": "件",
+      "quantity": 20,
+      "history": [
+        {
+          "date": "2025-07-22",
+          "action": "初始库存",
+          "quantity": 0,
+          "note": "新增物品"
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 20,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "B31",
+      "name": "毛血旺底料",
+      "specification": "250g*45袋/件",
+      "unit": "件",
+      "quantity": 15,
+      "history": [
+        {
+          "date": "2025-07-22",
+          "action": "初始库存",
+          "quantity": 0,
+          "note": "新增物品"
+        },
+        {
+          "date": "2025-07-15",
+          "action": "入库",
+          "quantity": 15,
+          "note": ""
+        }
+      ]
+    }
+  ]
+}
