@@ -38,7 +38,7 @@
       "name": "毛血旺底料—体料",
       "specification": "58g*180袋/件",
       "unit": "件",
-      "quantity": 5,
+      "quantity": 4,
       "history": [
         {
           "date": "2025-05-16T05:43",
@@ -152,7 +152,7 @@
       "name": "麻辣料汁包",
       "specification": "1kg*12/袋",
       "unit": "件",
-      "quantity": 1,
+      "quantity": 0,
       "history": [
         {
           "date": "2025-05-16T05:44",
@@ -191,7 +191,7 @@
       "name": "油辣椒料",
       "specification": "1kg*12/袋",
       "unit": "件",
-      "quantity": 1,
+      "quantity": 0,
       "history": [
         {
           "date": "2023-10-01",
@@ -230,7 +230,7 @@
       "name": "油泼酱—体料",
       "specification": "110g*90袋/件",
       "unit": "件",
-      "quantity": 28,
+      "quantity": 27,
       "history": [
         {
           "date": "2025-05-16T05:45",
