@@ -941,7 +941,7 @@
       "name": "番茄味复合调味料",
       "specification": "500g*28袋/件",
       "unit": "件",
-      "quantity": 3,
+      "quantity": 2,
       "history": [
         {
           "date": "2023-10-01",
@@ -1142,7 +1142,7 @@
       "name": "小炒汁粉料包",
       "specification": "25g*300袋/件",
       "unit": "件",
-      "quantity": 1,
+      "quantity": 0,
       "history": [
         {
           "date": "2025-05-16T05:47",
@@ -1301,7 +1301,7 @@
       "name": "啧啧酱",
       "specification": "1kg*10袋/件",
       "unit": "件",
-      "quantity": 2,
+      "quantity": 1,
       "history": [
         {
           "date": "2025-07-22",
