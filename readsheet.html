@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>罗妈酱料库存</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+    </style>
+</head>
+<body class="p-8 flex flex-col items-center min-h-screen">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-4xl">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">
+            罗妈酱料库存
+        </h1>
+
+        <div id="loadingMessage" class="text-center text-gray-600 text-lg mb-4">
+            载入数据...
+        </div>
+
+        <div id="dataContainer" class="overflow-x-auto">
+            <!-- Data will be loaded here -->
+        </div>
+
+        <div id="errorMessage" class="hidden text-center text-red-600 text-lg mt-4 p-4 border border-red-300 rounded-md bg-red-50">
+            <p class="font-bold mb-2">Failed to load data!</p>
+            <p id="errorDetails" class="text-sm"></p>
+            <p class="text-sm mt-2">Please check the following:</p>
+            <ul class="list-disc list-inside text-left text-sm mt-1">
+                <li>Ensure your Google Apps Script web app is **deployed as a new version** after any code changes.</li>
+                <li>Verify "Execute as:" is set to **"Me"** and "Who has access:" is **"Anyone"** in the deployment settings.</li>
+                <li>Check the **Google Apps Script execution logs** for errors (Extensions > Apps Script > Executions).</li>
+                <li>Confirm your Google Sheet is **not empty** and has headers in the first row.</li>
+                <li>Try clearing your browser cache or using an incognito window.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // IMPORTANT: This is the Web app URL you obtained from Google Apps Script deployment
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyYHqkeIK84OYgToyeZxSZ1aYoMPxCnZrvr8vPHCdBRDbMQS8adl4F2gQ0YOaK8hImX/exec'; 
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const dataContainer = document.getElementById('dataContainer');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorDetails = document.getElementById('errorDetails');
+
+            async function fetchData() {
+                try {
+                    loadingMessage.classList.remove('hidden');
+                    errorMessage.classList.add('hidden');
+                    errorDetails.textContent = ''; // Clear previous error details
+                    dataContainer.innerHTML = ''; // Clear previous data
+
+                    const response = await fetch(API_URL);
+
+                    if (!response.ok) {
+                        const errorResponseText = await response.text();
+                        console.error('HTTP error response text:', errorResponseText);
+                        throw new Error(`Status: ${response.status} - ${response.statusText}. Response: ${errorResponseText.substring(0, 200)}...`);
+                    }
+
+                    const data = await response.json();
+                    console.log('Fetched data:', data); // Log data for debugging
+
+                    if (data.length === 0) {
+                        dataContainer.innerHTML = '<p class="text-center text-gray-600">No data available in the Google Sheet, or the script returned an empty array.</p>';
+                        return;
+                    }
+
+                    // Create table
+                    const table = document.createElement('table');
+                    table.classList.add('min-w-full', 'bg-white', 'border', 'border-gray-200', 'rounded-lg', 'overflow-hidden');
+
+                    // Create table header
+                    const thead = document.createElement('thead');
+                    const headerRow = document.createElement('tr');
+                    headerRow.classList.add('bg-gray-100', 'text-gray-600', 'uppercase', 'text-sm', 'leading-normal');
+
+                    // Get headers from the first object's keys
+                    const headers = Object.keys(data[0]);
+                    headers.forEach(headerText => {
+                        const th = document.createElement('th');
+                        th.classList.add('py-3', 'px-6', 'text-left', 'font-semibold', 'rounded-tl-lg', 'rounded-tr-lg');
+                        th.textContent = headerText;
+                        headerRow.appendChild(th);
+                    });
+                    thead.appendChild(headerRow);
+                    table.appendChild(thead);
+
+                    // Create table body
+                    const tbody = document.createElement('tbody');
+                    tbody.classList.add('text-gray-700', 'text-sm', 'font-light');
+
+                    data.forEach(rowData => {
+                        const tr = document.createElement('tr');
+                        tr.classList.add('border-b', 'border-gray-200', 'hover:bg-gray-50');
+                        headers.forEach(header => {
+                            const td = document.createElement('td');
+                            td.classList.add('py-3', 'px-6', 'text-left', 'whitespace-nowrap');
+                            td.textContent = rowData[header];
+                            tr.appendChild(td);
+                        });
+                        tbody.appendChild(tr);
+                    });
+                    table.appendChild(tbody);
+
+                    dataContainer.appendChild(table);
+
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                    errorMessage.classList.remove('hidden');
+                    errorDetails.textContent = `Error: ${error.message}`;
+                    dataContainer.innerHTML = ''; // Clear any loading message or partial data
+                } finally {
+                    loadingMessage.classList.add('hidden');
+                }
+            }
+
+            fetchData();
+        });
+    </script>
+</body>
+</html>
