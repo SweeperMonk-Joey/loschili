@@ -125,7 +125,7 @@
       "name": "酸菜片",
       "specification": "1kg*12/袋",
       "unit": "件",
-      "quantity": 6,
+      "quantity": 5,
       "history": [
         {
           "date": "2025-05-16T05:43",
@@ -380,7 +380,7 @@
       "name": "红烧酱—体料",
       "specification": "55g*180袋/件",
       "unit": "件",
-      "quantity": 12,
+      "quantity": 10,
       "history": [
         {
           "date": "2025-05-16T05:49",
@@ -734,7 +734,7 @@
       "name": "辣椒节",
       "specification": "5kg*1袋/件",
       "unit": "件",
-      "quantity": 4,
+      "quantity": 3,
       "history": [
         {
           "date": "2025-05-16T05:49",
