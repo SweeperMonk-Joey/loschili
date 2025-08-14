@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    h1{
+        text-align: center;
+    }
+    table{
+        border-collapse: collapse;
+        margin:auto;
+        margin-top: 20px;
+        border-radius: 10px;
+    }
+    th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    .quantity-cell{
+        text-align: center;
+    }
+</style>
+
+<body>
+    <h1>库存数量</h1>
+    <table id="inventoryTable">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>品名</th>
+                <th>规格</th>
+                <th>单位</th>
+                <th>数量</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- 数据将通过JavaScript动态加载 -->
+        </tbody>
+    </table>
+
+    <script>
+        const url = "https://script.google.com/macros/s/AKfycbyYHqkeIK84OYgToyeZxSZ1aYoMPxCnZrvr8vPHCdBRDbMQS8adl4F2gQ0YOaK8hImX/exec";
+        let inventoryData = {
+            items: []
+        };
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json(); // Parse the JSON response
+            }
+        )
+            .then(data => {
+                console.log(data); // Work with your JSON data here
+                inventoryData = data;
+                renderTable();
+            })
+            .then(data => {
+                console.log('Data received:', data);
+                return data;
+            })
+            .catch(error => {
+                console.error('Error fetching JSON:', error);
+                alert("There is something wrong");
+            });
+
+        function renderTable() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+
+            inventoryData.forEach(item => {
+                const row = document.createElement('tr');
+                if(item["Stock Qty"]==0){
+                    row.innerHTML = `
+                    <td style='width:40px'>${item.ID}</td>
+                    <td style='width:150px;color:red;font-weight:bold;'>${item.Name}</td>
+                    <td style='width:100px'>${item.Specification}</td>
+                    <td style='width:40px'>${item.Unit}</td>
+                    <td style='width:40px;color:red;font-weight:bold;' class="quantity-cell">${item["Stock Qty"]}</td>
+                `; 
+                }else if(item["Stock Qty"]<3){
+                    row.innerHTML = `
+                    <td style='width:40px'>${item.ID}</td>
+                    <td style='width:150px;color:orange;font-weight:bold;'>${item.Name}</td>
+                    <td style='width:100px'>${item.Specification}</td>
+                    <td style='width:40px'>${item.Unit}</td>
+                    <td style='width:40px;color:orange;font-weight:bold' class="quantity-cell">${item["Stock Qty"]}</td>
+                `; 
+                
+                }else{
+                    row.innerHTML = `
+                    <td style='width:40px'>${item.ID}</td>
+                    <td style='width:150px'>${item.Name}</td>
+                    <td style='width:100px'>${item.Specification}</td>
+                    <td style='width:40px'>${item.Unit}</td>
+                    <td style='width:40px' class="quantity-cell">${item["Stock Qty"]}</td>
+                `; 
+                
+                }
+               
+              
+                tableBody.appendChild(row);
+            });
+
+        }
+    </script>
+</body>
+
+</html>
