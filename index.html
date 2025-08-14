@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>LosChiliHouse Seasoning Inventory</title>
+</head>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+<body class="bg-gray-900 flex items-center justify-center p-4 min-h-screen">
+    <div class="w-full max-w-6xl overflow-x-auto rounded-xl shadow-lg bg-gray-800 p-6">
+        <h1 class="text-3xl font-bold text-white mb-6 text-center">库存数量</h1>
+        <div class="overflow-hidden rounded-lg border border-gray-700">
+            <table class="min-w-full divide-y divide-gray-700">
+            <thead class="bg-gray-950">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">序号</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">品名</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">规格</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">单位</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">数量</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody" class="divide-y divide-gray-700 bg-gray-800">
+
+        </tbody>
+    </table>
+        </div>
+    </div>
+
+
+    <script>
+        const url = "https://script.google.com/macros/s/AKfycbyYHqkeIK84OYgToyeZxSZ1aYoMPxCnZrvr8vPHCdBRDbMQS8adl4F2gQ0YOaK8hImX/exec";
+        let inventoryData = {
+            items: []
+        };
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json(); // Parse the JSON response
+            }
+        )
+            .then(data => {
+                console.log(data); // Work with your JSON data here
+                inventoryData = data;
+                renderTable();
+            })
+            .then(data => {
+                console.log('Data received:', data);
+                return data;
+            })
+            .catch(error => {
+                console.error('Error fetching JSON:', error);
+                alert("There is something wrong");
+            });
+
+        function renderTable() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+
+            inventoryData.forEach(item => {
+                const row = document.createElement('tr');
+                row.className='odd:bg-gray-800 even:bg-gray-700';
+                if(item["Stock Qty"]==0){
+                    row.innerHTML = `
+                    <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-100">${item.ID}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-red-400">${item.Name}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-red-400">${item.Specification}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-red-400">${item.Unit}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-red-400">${item["Stock Qty"]}</td>
+                `; 
+                }else if(item["Stock Qty"]<3){
+                    row.innerHTML = `
+                    <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-100">${item.ID}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-orange-400">${item.Name}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-orange-400">${item.Specification}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-orange-400">${item.Unit}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-orange-400">${item["Stock Qty"]}</td>
+                `; 
+                
+                }else{
+                    row.innerHTML = `
+                    <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-100">${item.ID}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-400">${item.Name}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-400">${item.Specification}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-400">${item.Unit}</td>
+                    <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-400">${item["Stock Qty"]}</td>
+                `; 
+                
+                }
+               
+              
+                tableBody.appendChild(row);
+            });
+
+        }
+    </script>
+</body>
+
+</html>
